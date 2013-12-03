@@ -59,7 +59,7 @@ AJ_Status AboutGetAboutData(AJ_Message* msg)
     AJ_Status status = AJ_OK;
     AJ_Message reply;
     char* language;
-    int8_t langIndex = 0;
+    enum_lang_indecies_t langIndex = ERROR_LANGUAGE_INDEX;
 
     AJ_Printf("GetAboutData()\n");
 
