@@ -69,7 +69,7 @@ AJ_Status AboutGetAboutData(AJ_Message* msg)
 
     do {
         CHECK(AJ_UnmarshalArgs(msg, "s", &language));
-        if ((langIndex = Common_IsLanguageSupported(msg, &reply, language)) >= 0) {
+        if (Common_IsLanguageSupported(msg, &reply, language, &langIndex)) {
             CHECK(AJ_MarshalReplyMsg(msg, &reply));
             CHECK(PropertyStore_ReadAll(&reply, filter, langIndex));
         }
