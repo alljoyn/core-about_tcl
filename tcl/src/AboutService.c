@@ -101,7 +101,9 @@ static AJ_Status AboutGetObjectDescriptionInternal(AJ_Message* msg, uint8_t just
 
     do {
         AJ_Printf("ProxyHandleGetInterfaces()\n");
-        if (!justParse) CHECK(AJ_MarshalReplyMsg(msg, amsg));
+        if (!justParse) {
+            CHECK(AJ_MarshalReplyMsg(msg, amsg));
+        }
 
         CHECK(AJ_MarshalContainer(amsg, &array, AJ_ARG_ARRAY));
         AJ_Object current = AnnounceObjects[i];
@@ -126,7 +128,9 @@ static AJ_Status AboutGetObjectDescriptionInternal(AJ_Message* msg, uint8_t just
 
         }
         CHECK(AJ_MarshalCloseContainer(amsg, &array));
-        if (!justParse) CHECK(AJ_DeliverMsg(amsg));
+        if (!justParse) {
+            CHECK(AJ_DeliverMsg(amsg));
+        }
     } while (0);
 
     return status;
