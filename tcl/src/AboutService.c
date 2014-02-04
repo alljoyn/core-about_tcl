@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2013, AllSeen Alliance. All rights reserved.
+ * Copyright (c) 2013 - 2014, AllSeen Alliance. All rights reserved.
  *
  *    Permission to use, copy, modify, and/or distribute this software for any
  *    purpose with or without fee is hereby granted, provided that the above
@@ -59,12 +59,12 @@ AJ_Status AboutGetAboutData(AJ_Message* msg)
     AJ_Status status = AJ_OK;
     AJ_Message reply;
     char* language;
-    enum_lang_indecies_t langIndex = ERROR_LANGUAGE_INDEX;
+    int8_t langIndex = AJSVC_PROPERTY_STORE_ERROR_LANGUAGE_INDEX;
 
     AJ_Printf("GetAboutData()\n");
 
-    property_store_filter_t filter;
-    memset(&filter, 0, sizeof(property_store_filter_t));
+    AJSVC_PropertyStoreCategoryFilter filter;
+    memset(&filter, 0, sizeof(AJSVC_PropertyStoreCategoryFilter));
     filter.bit0About = TRUE;
 
     do {
@@ -158,8 +158,8 @@ AJ_Status AboutAnnounce(AJ_BusAttachment* bus)
         q = App_ServicePort;
         CHECK(AJ_MarshalArgs(&out, "q", q));
         CHECK(AboutGetObjectDescriptionInternal(&out, TRUE));
-        property_store_filter_t filter;
-        memset(&filter, 0, sizeof(property_store_filter_t));
+        AJSVC_PropertyStoreCategoryFilter filter;
+        memset(&filter, 0, sizeof(AJSVC_PropertyStoreCategoryFilter));
         filter.bit2Announce = TRUE;
         CHECK(PropertyStore_ReadAll(&out, filter, PropertyStore_GetCurrentDefaultLanguageIndex()));
         CHECK(AJ_DeliverMsg(&out));
