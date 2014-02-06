@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2013, AllSeen Alliance. All rights reserved.
+ * Copyright (c) 2013 - 2014, AllSeen Alliance. All rights reserved.
  *
  *    Permission to use, copy, modify, and/or distribute this software for any
  *    purpose with or without fee is hereby granted, provided that the above
@@ -22,74 +22,25 @@
  *  @{
  */
 
-#include <alljoyn/about/AboutOEMProvisioning.h>
 #include <alljoyn/services_common/Services_Common.h>
+
+/**
+ * published About Icon interfaces that will be announced
+ */
+extern const AJ_InterfaceDescription AJ_AboutIconInterfaces[];
 
 #define NUM_ABOUT_ICON_OBJECTS 1
 
 #define ABOUT_ICON_APPOBJECTS \
-    { "/About/DeviceIcon",   AboutIconInterfaces },
-
-/*
- * Message identifiers for the method calls this application implements
- */
-
-#define ABOUT_ICON_OBJECT_INDEX                         NUM_PRE_ABOUT_OBJECTS + 1
-
-#define ABOUT_ICON_GET_PROP                             AJ_APP_MESSAGE_ID(ABOUT_ICON_OBJECT_INDEX, 0, AJ_PROP_GET)
-#define ABOUT_ICON_SET_PROP                             AJ_APP_MESSAGE_ID(ABOUT_ICON_OBJECT_INDEX, 0, AJ_PROP_SET)
-
-#define ABOUT_ICON_VERSION_PROP                         AJ_APP_PROPERTY_ID(ABOUT_ICON_OBJECT_INDEX, 1, 0)
-#define ABOUT_ICON_MIMETYPE_PROP                        AJ_APP_PROPERTY_ID(ABOUT_ICON_OBJECT_INDEX, 1, 1)
-#define ABOUT_ICON_SIZE_PROP                            AJ_APP_PROPERTY_ID(ABOUT_ICON_OBJECT_INDEX, 1, 2)
-
-#define ABOUT_ICON_GET_URL                              AJ_APP_MESSAGE_ID(ABOUT_ICON_OBJECT_INDEX, 1, 3)
-#define ABOUT_ICON_GET_CONTENT                          AJ_APP_MESSAGE_ID(ABOUT_ICON_OBJECT_INDEX, 1, 4)
+    { "/About/DeviceIcon",   AJ_AboutIconInterfaces },
 
 /*
  * AboutIcon API
  */
 
-/**
- * published About Icon interfaces that will be announced
- */
-extern const AJ_InterfaceDescription AboutIconInterfaces[];
+AJ_Status AJ_AboutIcon_Start(const char* aboutIconMimetype, const uint8_t* aboutIconContent, const size_t aboutIconContentSize, const char* aboutIconUrl);
 
-/**
- * handler for property getters associated with org.alljoyn.Icon
- * @param replyMsg
- * @param propId
- * @param context
- * @return aj_status
- */
-AJ_Status AboutIcon_PropGetHandler(AJ_Message* replyMsg, uint32_t propId, void* context);
-
-/**
- * handler for property setters associated with org.alljoyn.Icon
- * @param replyMsg
- * @param propId
- * @param context
- * @return aj_status
- */
-AJ_Status AboutIcon_PropSetHandler(AJ_Message* replyMsg, uint32_t propId, void* context);
-
-/**
- * handler for GetContent request in org.alljoyn.Icon
- * @param replyMsg
- * @param propId
- * @param context
- * @return aj_status
- */
-AJ_Status AboutIcon_GetContent(AJ_Message* msg);
-
-/**
- * handler for GetUrl request in org.alljoyn.Icon
- * @param replyMsg
- * @param propId
- * @param context
- * @return aj_status
- */
-AJ_Status AboutIcon_GetUrl(AJ_Message* msg);
+AJSVC_ServiceStatus AJ_AboutIcon_MessageProcessor(AJ_BusAttachment* bus, AJ_Message* msg, AJ_Status* msgStatus);
 
 /** @} */
 

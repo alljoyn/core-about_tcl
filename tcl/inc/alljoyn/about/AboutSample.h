@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2013, AllSeen Alliance. All rights reserved.
+ * Copyright (c) 2013 - 2014, AllSeen Alliance. All rights reserved.
  *
  *    Permission to use, copy, modify, and/or distribute this software for any
  *    purpose with or without fee is hereby granted, provided that the above
@@ -22,38 +22,31 @@
  *  @{
  */
 
-#include <Apps_Common.h>
+#include <alljoyn.h>
+
+#define AJ_ABOUT_SERVICE_PORT 900
 
 /*
  * About Sample API
  */
 /**
  * init
- */
-void About_Init();
-/**
- * connected handler
- * @param bus
+ * @param announceObjects
  * @return status
  */
-AJ_Status About_ConnectedHandler(AJ_BusAttachment* bus);
-/**
- * message processing
- * @param bus
- * @param msg
- * @return status
- */
-Service_Status About_MessageProcessor(AJ_BusAttachment* bus, AJ_Message* msg, AJ_Status*msgStatus);
+AJ_Status About_Init(AJ_Object* announceObjects, const char* aboutIconMimetype, const uint8_t* aboutIconContent, const size_t aboutIconContentSize, const char* aboutIconUrl);
+
 /**
  * called while no messages to process
- * @param bus
+ * @param busAttachment
  */
-void About_IdleConnectedHandler(AJ_BusAttachment* bus);
+void About_DoWork(AJ_BusAttachment* busAttachment);
+
 /**
  * handling finish service
- * @param bus
+ * @return status
  */
-void About_Finish(AJ_BusAttachment* bus);
+AJ_Status About_Finish();
 
 /** @} */
  #endif // _ABOUTSAMPLE_H_
